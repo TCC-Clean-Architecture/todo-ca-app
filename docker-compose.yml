@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  todo-back:
+    image: todo-ca-back
+    container_name: todo-ca-back
+    build:
+      context: ./todo-back/backend-with-ca
+      dockerfile: Dockerfile
+    networks:
+      - express-mongo
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/test
+    ports:
+      - "3000:3000"
+
+  mongo:
+    image: mongo:latest
+    networks:
+      - express-mongo
+    ports:
+      - "27017:27017"
+
+  todo-front:
+    image: todo-ca-front
+    container_name: todo-ca-front
+    build:
+      context: ./todo-front
+      dockerfile: container/Dockerfile
+    volumes:
+      - "./todo-front:/app"
+      - "/app/node_modules"
+    ports:
+      - "5173:5173"
+
+networks:
+  express-mongo:
+    driver: bridge
