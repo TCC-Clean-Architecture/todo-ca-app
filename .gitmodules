@@ -1,0 +1,6 @@
+[submodule "todo-front"]
+	path = todo-front
+	url = git@github.com:TCC-Clean-Architecture/todo-ca-front.git
+[submodule "todo-back"]
+	path = todo-back
+	url = git@github.com:TCC-Clean-Architecture/todo-ca-back.git
